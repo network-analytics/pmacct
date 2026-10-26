@@ -98,10 +98,10 @@ void warn_unsupported_packet_handler(u_int64_t primitive, u_int64_t tool)
 
 void evaluate_packet_handlers()
 {
-  int primitives = 0, index = 0;
+  int index = 0;
 
-  while (channels_list[index].aggregation) { 
-    primitives = 0;
+  while (channels_list[index].aggregation) {
+    int primitives = 0;
     memset(&channels_list[index].phandler, 0, N_PRIMITIVES*sizeof(pkt_handler));
 
 #if defined (HAVE_L2)
@@ -1312,10 +1312,9 @@ void evaluate_packet_handlers()
       primitives++;
     }
 
+    assert(primitives < N_PRIMITIVES);
     index++;
   }
-
-  assert(primitives < N_PRIMITIVES);
 }
 
 #if defined (HAVE_L2)
